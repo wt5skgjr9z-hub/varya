@@ -1,788 +1,361 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MINION SHOP — Футболки с Миньонами 🍌</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            --minion-yellow: #FFD000;
-            --minion-yellow-light: #FFF4B8;
-            --minion-blue: #1C54A4;
-            --minion-blue-dark: #123B75;
-            --dark-text: #222222;
-            --white: #FFFFFF;
-            --gray-bg: #F8F9FA;
-            --card-shadow: 0 10px 25px rgba(28, 84, 164, 0.12);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Rubik', sans-serif;
-            background-color: var(--minion-yellow);
-            background-image: radial-gradient(rgba(255, 255, 255, 0.4) 2px, transparent 2px);
-            background-size: 30px 30px;
-            color: var(--dark-text);
-            line-height: 1.5;
-            min-height: 100vh;
-        }
-
-        /* Шапка сайта */
-        header {
-            position: sticky;
-            top: 0;
-            background: rgba(255, 208, 0, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 3px solid var(--minion-blue);
-            z-index: 100;
-            padding: 12px 20px;
-        }
-
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            text-decoration: none;
-            color: var(--minion-blue-dark);
-            font-family: 'Fredoka', cursive;
-            font-size: 1.8rem;
-            font-weight: 700;
-        }
-
-        .logo span {
-            background: var(--minion-blue);
-            color: var(--white);
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 1.2rem;
-        }
-
-        .header-contacts {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .contact-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--white);
-            color: var(--minion-blue);
-            padding: 8px 14px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            border: 2px solid var(--minion-blue);
-            transition: all 0.2s ease;
-        }
-
-        .contact-btn:hover {
-            background: var(--minion-blue);
-            color: var(--white);
-        }
-
-        /* Кнопка Корзины */
-        .cart-trigger {
-            position: relative;
-            background: var(--minion-blue);
-            color: var(--white);
-            border: none;
-            padding: 10px 18px;
-            border-radius: 25px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            transition: transform 0.2s ease;
-        }
-
-        .cart-trigger:hover {
-            transform: scale(1.05);
-            background: var(--minion-blue-dark);
-        }
-
-        .cart-badge {
-            background: #FF4757;
-            color: white;
-            font-size: 0.8rem;
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Баннер */
-        .hero {
-            max-width: 1200px;
-            margin: 25px auto 10px;
-            padding: 0 20px;
-        }
-
-        .hero-card {
-            background: linear-gradient(135deg, var(--minion-blue) 0%, var(--minion-blue-dark) 100%);
-            border-radius: 28px;
-            padding: 35px;
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            overflow: hidden;
-            position: relative;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            border: 4px solid var(--white);
-        }
-
-        .hero-text h1 {
-            font-family: 'Fredoka', cursive;
-            font-size: 2.8rem;
-            line-height: 1.1;
-            margin-bottom: 12px;
-            color: var(--minion-yellow);
-        }
-
-        .hero-text p {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            margin-bottom: 20px;
-            max-width: 450px;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            background: var(--minion-yellow);
-            color: var(--dark-text);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-weight: 800;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        .hero-img {
-            max-width: 280px;
-            border-radius: 15px;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
-            animation: bounce 3s ease-in-out infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        /* Заголовок каталога */
-        .catalog-title {
-            max-width: 1200px;
-            margin: 30px auto 15px;
-            padding: 0 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .catalog-title h2 {
-            font-family: 'Fredoka', cursive;
-            font-size: 2.2rem;
-            color: var(--minion-blue-dark);
-        }
-
-        /* Сетка товаров */
-        .products-grid {
-            max-width: 1200px;
-            margin: 0 auto 50px;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        .product-card {
-            background: var(--white);
-            border-radius: 22px;
-            padding: 20px;
-            box-shadow: var(--card-shadow);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border: 3px solid transparent;
-            position: relative;
-        }
-
-        .product-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--minion-yellow);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
-        }
-
-        .product-image-wrap {
-            width: 100%;
-            height: 260px;
-            background: var(--gray-bg);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            margin-bottom: 15px;
-            position: relative;
-        }
-
-        .product-image-wrap img {
-            max-width: 90%;
-            max-height: 90%;
-            object-fit: contain;
-            transition: transform 0.3s ease;
-        }
-
-        .product-card:hover .product-image-wrap img {
-            transform: scale(1.06);
-        }
-
-        .product-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--dark-text);
-            margin-bottom: 8px;
-        }
-
-        .product-price {
-            font-size: 1.4rem;
-            font-weight: 900;
-            color: var(--minion-blue);
-            margin-bottom: 15px;
-        }
-
-        /* Выбор размера M / L */
-        .size-selector {
-            margin-bottom: 15px;
-        }
-
-        .size-label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: #666;
-            margin-bottom: 6px;
-            display: block;
-        }
-
-        .size-options {
-            display: flex;
-            gap: 10px;
-        }
-
-        .size-btn {
-            flex: 1;
-            padding: 8px;
-            border: 2px solid #E0E0E0;
-            background: var(--white);
-            border-radius: 10px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .size-btn.active {
-            border-color: var(--minion-blue);
-            background: var(--minion-yellow-light);
-            color: var(--minion-blue-dark);
-        }
-
-        .add-to-cart-btn {
-            width: 100%;
-            background: var(--minion-yellow);
-            color: var(--dark-text);
-            border: 2px solid var(--minion-blue);
-            padding: 12px;
-            border-radius: 14px;
-            font-weight: 800;
-            font-size: 1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.2s ease;
-        }
-
-        .add-to-cart-btn:hover {
-            background: var(--minion-blue);
-            color: var(--white);
-        }
-
-        /* Выезжающая Корзина (Drawer) */
-        .cart-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(4px);
-            z-index: 200;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
-
-        .cart-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .cart-drawer {
-            position: fixed;
-            top: 0;
-            right: -420px;
-            width: 100%;
-            max-width: 400px;
-            height: 100%;
-            background: var(--white);
-            z-index: 201;
-            box-shadow: -10px 0 30px rgba(0,0,0,0.2);
-            display: flex;
-            flex-direction: column;
-            transition: right 0.3s ease;
-        }
-
-        .cart-overlay.active .cart-drawer {
-            right: 0;
-        }
-
-        .cart-header {
-            padding: 20px;
-            background: var(--minion-yellow);
-            border-bottom: 3px solid var(--minion-blue);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .cart-header h3 {
-            font-family: 'Fredoka', cursive;
-            font-size: 1.5rem;
-            color: var(--minion-blue-dark);
-        }
-
-        .close-cart {
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: var(--dark-text);
-        }
-
-        .cart-items {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-        }
-
-        .cart-item {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid #EEEEEE;
-        }
-
-        .cart-item img {
-            width: 65px;
-            height: 65px;
-            object-fit: contain;
-            background: var(--gray-bg);
-            border-radius: 10px;
-        }
-
-        .cart-item-info {
-            flex: 1;
-        }
-
-        .cart-item-title {
-            font-weight: 700;
-            font-size: 0.95rem;
-        }
-
-        .cart-item-size {
-            font-size: 0.8rem;
-            color: #666;
-            margin-top: 2px;
-        }
-
-        .cart-item-price {
-            font-weight: 800;
-            color: var(--minion-blue);
-            margin-top: 4px;
-        }
-
-        .cart-item-remove {
-            background: none;
-            border: none;
-            color: #FF4757;
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 5px;
-        }
-
-        .cart-footer {
-            padding: 20px;
-            background: var(--gray-bg);
-            border-top: 2px solid #EEEEEE;
-        }
-
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            font-size: 1.3rem;
-            font-weight: 800;
-            margin-bottom: 15px;
-            color: var(--dark-text);
-        }
-
-        .checkout-btn {
-            width: 100%;
-            background: #25D366;
-            color: white;
-            border: none;
-            padding: 14px;
-            border-radius: 14px;
-            font-weight: 800;
-            font-size: 1.1rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            text-decoration: none;
-            transition: background 0.2s ease;
-        }
-
-        .checkout-btn:hover {
-            background: #1EBE5D;
-        }
-
-        .cart-empty-text {
-            text-align: center;
-            color: #888;
-            margin-top: 40px;
-            font-size: 1.1rem;
-        }
-
-        /* Подвал */
-        footer {
-            background: var(--minion-blue-dark);
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-            margin-top: 50px;
-        }
-
-        footer a {
-            color: var(--minion-yellow);
-            text-decoration: none;
-            font-weight: 700;
-        }
-
-        @media (max-width: 768px) {
-            .hero-card { flex-direction: column; text-align: center; }
-            .hero-text h1 { font-size: 2.2rem; }
-            .hero-img { margin-top: 20px; max-width: 200px; }
-            .header-contacts { display: none; }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Шапка сайта -->
-    <header>
-        <div class="header-container">
-            <a href="#" class="logo">
-                BANANA SHOP <span>MINIONS</span>
-            </a>
-
-            <div class="header-contacts">
-                <a href="tel:+79998335704" class="contact-btn">📞 +7 (999) 833-57-04</a>
-                <a href="https://t.me/a16rs" target="_blank" class="contact-btn">✈️ @a16rs</a>
-            </div>
-
-            <button class="cart-trigger" onclick="toggleCart()">
-                🛒 Корзина <span class="cart-badge" id="cart-count">0</span>
-            </button>
-        </div>
-    </header>
-
-    <!-- Баннер -->
-    <section class="hero">
-        <div class="hero-card">
-            <div class="hero-text">
-                <span class="hero-badge">NEW COLLECTION 🍌</span>
-                <h1>Эксклюзивные футболки с Миньонами!</h1>
-                <p>Яркие принты, премиальный хлопок и 100% банан-настроение. Размеры M и L в наличии!</p>
-            </div>
-            <img src="https://m.media-amazon.com/images/I/71u9sJ-mGgL._AC_SL1500_.jpg" alt="Minions Squad" class="hero-img">
-        </div>
-    </section>
-
-    <!-- Каталог товаров -->
-    <div class="catalog-title">
-        <h2>Каталог футболок 👕</h2>
-    </div>
-
-    <section class="products-grid" id="products-container">
-        <!-- Карточки товаров будут автоматически созданы через JS -->
-    </section>
-
-    <!-- Выезжающая Корзина -->
-    <div class="cart-overlay" id="cart-overlay" onclick="closeCartOnOverlay(event)">
-        <div class="cart-drawer">
-            <div class="cart-header">
-                <h3>Твоя Корзина 🍌</h3>
-                <button class="close-cart" onclick="toggleCart()">&times;</button>
-            </div>
-
-            <div class="cart-items" id="cart-items-container">
-                <p class="cart-empty-text">Корзина пуста 😔<br>Выбери классную футболку!</p>
-            </div>
-
-            <div class="cart-footer">
-                <div class="cart-total">
-                    <span>Итого:</span>
-                    <span id="cart-total-price">0 ₽</span>
-                </div>
-                <button class="checkout-btn" onclick="sendOrderToTelegram()">
-                    ✈️ Оформить заказ в Telegram
+import React, { useState, useEffect } from 'react';
+import { ShoppingCart, X, Plus, Minus, Trash2, Phone, Send, Info } from 'lucide-react';
+
+// Данные о товарах (используем точные имена файлов, как вы просили)
+const PRODUCTS = [
+  {
+    id: 1,
+    title: 'Футболка "Много миньонов"',
+    price: 1500,
+    image: 'image.png',
+    description: 'Яркая футболка с толпой веселых миньонов.'
+  },
+  {
+    id: 2,
+    title: 'Серая футболка "Миньоны со спины"',
+    price: 1400,
+    image: 'image_2.png',
+    description: 'Стильная серая футболка со смешным принтом.'
+  },
+  {
+    id: 3,
+    title: 'Белая футболка "Dab миньон"',
+    price: 1600,
+    image: 'image_3.png',
+    description: 'Трендовый миньон, делающий дэб.'
+  }
+];
+
+// Цветовая палитра миньонов
+const COLORS = {
+  yellow: '#fce300',
+  blue: '#2563eb', // Tailwind blue-600 (похож на джинсовый комбинезон)
+  dark: '#1e293b'
+};
+
+const ProductCard = ({ product, onAddToCart }) => {
+  const [selectedSize, setSelectedSize] = useState('M');
+
+  return (
+    <div className="bg-white rounded-3xl p-5 shadow-[8px_8px_0_0_rgba(37,99,235,1)] border-4 border-blue-600 flex flex-col transition-transform hover:-translate-y-2 hover:shadow-[12px_12px_0_0_rgba(37,99,235,1)]">
+      <div className="relative aspect-square w-full mb-4 bg-gray-50 rounded-2xl overflow-hidden border-2 border-gray-100 flex items-center justify-center">
+        {/* В реальном проекте здесь будет <img src={product.image} />, 
+            но так как это интерактивный превью, мы используем переданные имена файлов */}
+        <img 
+          src={product.image} 
+          alt={product.title} 
+          className="object-cover w-full h-full"
+          onError={(e) => {
+            // Фолбэк, если картинка не загрузится локально
+            e.target.src = `https://placehold.co/400x400/fce300/2563eb?text=Minion+T-Shirt`;
+          }}
+        />
+      </div>
+      
+      <div className="flex-grow flex flex-col">
+        <h3 className="text-xl font-black text-gray-900 leading-tight mb-2">
+          {product.title}
+        </h3>
+        <p className="text-gray-500 text-sm mb-4 line-clamp-2">{product.description}</p>
+        
+        <div className="mt-auto">
+          <div className="flex justify-between items-center mb-4">
+            <span className="text-2xl font-black text-blue-600">
+              {product.price} ₽
+            </span>
+          </div>
+
+          <div className="mb-4">
+            <span className="block text-sm font-bold text-gray-700 mb-2 uppercase">Размер:</span>
+            <div className="flex gap-2">
+              {['M', 'L'].map((size) => (
+                <button
+                  key={size}
+                  onClick={() => setSelectedSize(size)}
+                  className={`w-12 h-12 rounded-xl font-black text-lg flex items-center justify-center border-2 transition-all ${
+                    selectedSize === size
+                      ? 'bg-blue-600 text-white border-blue-600 shadow-[2px_2px_0_0_rgba(0,0,0,0.2)]'
+                      : 'bg-white text-gray-600 border-gray-300 hover:border-blue-400'
+                  }`}
+                >
+                  {size}
                 </button>
-                <div style="text-align: center; margin-top: 10px; font-size: 0.85rem; color: #666;">
-                    Или звони по телефону: <strong>+7 (999) 833-57-04</strong>
-                </div>
+              ))}
             </div>
+          </div>
+
+          <button
+            onClick={() => onAddToCart({ ...product, size: selectedSize })}
+            className="w-full bg-[#fce300] hover:bg-yellow-400 text-blue-800 font-black text-lg py-4 rounded-xl border-2 border-blue-800 shadow-[4px_4px_0_0_rgba(30,41,59,1)] hover:shadow-[2px_2px_0_0_rgba(30,41,59,1)] hover:translate-y-[2px] transition-all flex justify-center items-center gap-2"
+          >
+            <ShoppingCart size={20} className="stroke-[3]" />
+            ДОБАВИТЬ В КОРЗИНУ
+          </button>
         </div>
+      </div>
     </div>
+  );
+};
 
-    <!-- Подвал -->
-    <footer>
-        <p>MINION SHOP © 2026. Все права защищены 🍌</p>
-        <p style="margin-top: 8px; font-size: 0.9rem;">Контакты: <a href="tel:+79998335704">+7 (999) 833-57-04</a> | Telegram: <a href="https://t.me/a16rs" target="_blank">@a16rs</a></p>
-    </footer>
+const CartDrawer = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveItem }) => {
+  const total = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
-    <script>
-        // Данные о товарах (Футболки)
-        const products = [
-            {
-                id: 1,
-                name: "3D Full Print Minions Tee",
-                price: 1990,
-                image: "https://m.media-amazon.com/images/I/71u9sJ-mGgL._AC_SL1500_.jpg",
-                badge: "HIT 🔥"
-            },
-            {
-                id: 2,
-                name: "Grey Minions Clothesline Tee",
-                price: 1690,
-                image: "https://i.ibb.co/L95Z5rL/minions-clothes.jpg",
-                badge: "POPULAR ✨"
-            },
-            {
-                id: 3,
-                name: "White Dab Minion Tee",
-                price: 1490,
-                image: "https://i.ibb.co/8Y4nQyN/dab-minion.jpg",
-                badge: "STYLE ⚡"
-            },
-            {
-                id: 4,
-                name: "King Bob Limited Edition Tee",
-                price: 1890,
-                image: "https://m.media-amazon.com/images/I/61NlBTh8p5L._AC_UX679_.jpg",
-                badge: "LIMITED 👑"
-            }
-        ];
+  return (
+    <>
+      {/* Фон-затемнение */}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 bg-blue-900/40 backdrop-blur-sm z-40 transition-opacity"
+          onClick={onClose}
+        />
+      )}
+      
+      {/* Сама корзина */}
+      <div 
+        className={`fixed top-0 right-0 h-full w-full sm:w-[400px] bg-white z-50 transform transition-transform duration-300 ease-in-out border-l-4 border-blue-600 shadow-2xl flex flex-col ${
+          isOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+      >
+        <div className="p-5 border-b-4 border-blue-600 flex justify-between items-center bg-[#fce300]">
+          <h2 className="text-2xl font-black text-blue-800 flex items-center gap-2 uppercase tracking-wide">
+            <ShoppingCart size={28} className="stroke-[3]" />
+            Твоя корзина
+          </h2>
+          <button 
+            onClick={onClose}
+            className="p-2 hover:bg-blue-600 hover:text-white rounded-full transition-colors text-blue-800"
+          >
+            <X size={24} className="stroke-[3]" />
+          </button>
+        </div>
 
-        // Запасные картинки для товаров, если внешний хостинг недоступен
-        const fallbackImages = {
-            1: "https://m.media-amazon.com/images/I/71u9sJ-mGgL._AC_SL1500_.jpg",
-            2: "https://m.media-amazon.com/images/I/61X-H2MhTXL._AC_UL1500_.jpg",
-            3: "https://m.media-amazon.com/images/I/51w+z4gTh0L._AC_UL1500_.jpg",
-            4: "https://m.media-amazon.com/images/I/61NlBTh8p5L._AC_UX679_.jpg"
-        };
-
-        // Состояние корзины и выбранных размеров
-        let selectedSizes = {};
-        let cart = JSON.parse(localStorage.getItem('minion_cart')) || [];
-
-        // Отрисовка товаров
-        function renderProducts() {
-            const container = document.getElementById('products-container');
-            container.innerHTML = products.map(product => {
-                const selectedSize = selectedSizes[product.id] || 'M';
-                return `
-                    <div class="product-card">
-                        <div class="product-image-wrap">
-                            <img src="${product.image}" onerror="this.src='${fallbackImages[product.id]}'" alt="${product.name}">
-                        </div>
-                        <div>
-                            <div class="product-title">${product.name}</div>
-                            <div class="product-price">${product.price} ₽</div>
-                            
-                            <div class="size-selector">
-                                <span class="size-label">Выберите размер:</span>
-                                <div class="size-options">
-                                    <button class="size-btn ${selectedSize === 'M' ? 'active' : ''}" onclick="selectSize(${product.id}, 'M')">M</button>
-                                    <button class="size-btn ${selectedSize === 'L' ? 'active' : ''}" onclick="selectSize(${product.id}, 'L')">L</button>
-                                </div>
-                            </div>
-                        </div>
-
-                        <button class="add-to-cart-btn" onclick="addToCart(${product.id})">
-                            🛒 В корзину
+        <div className="flex-1 overflow-y-auto p-5 bg-blue-50">
+          {cartItems.length === 0 ? (
+            <div className="h-full flex flex-col items-center justify-center text-gray-400 gap-4">
+              <ShoppingCart size={64} className="opacity-20" />
+              <p className="text-xl font-bold">Тут пока пусто!</p>
+              <p className="text-center">Выбери классную футболку<br/>и добавь ее сюда.</p>
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {cartItems.map((item) => (
+                <div key={`${item.id}-${item.size}`} className="bg-white p-4 rounded-2xl border-2 border-blue-200 shadow-sm flex gap-4">
+                  <div className="w-20 h-20 bg-gray-100 rounded-xl border border-gray-200 overflow-hidden flex-shrink-0">
+                     <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                  </div>
+                  
+                  <div className="flex-1 flex flex-col justify-between">
+                    <div>
+                      <h4 className="font-bold text-gray-900 leading-tight">{item.title}</h4>
+                      <p className="text-sm font-bold text-blue-600 mt-1">Размер: {item.size}</p>
+                    </div>
+                    
+                    <div className="flex justify-between items-end mt-2">
+                      <div className="font-black text-lg">{item.price} ₽</div>
+                      
+                      <div className="flex items-center gap-2 bg-gray-100 rounded-lg p-1">
+                        <button 
+                          onClick={() => onUpdateQuantity(item.id, item.size, item.quantity - 1)}
+                          className="w-7 h-7 flex items-center justify-center bg-white rounded-md shadow-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                        >
+                          <Minus size={16} className="stroke-[3]" />
                         </button>
+                        <span className="w-6 text-center font-bold text-sm">{item.quantity}</span>
+                        <button 
+                          onClick={() => onUpdateQuantity(item.id, item.size, item.quantity + 1)}
+                          className="w-7 h-7 flex items-center justify-center bg-white rounded-md shadow-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-colors"
+                        >
+                          <Plus size={16} className="stroke-[3]" />
+                        </button>
+                      </div>
                     </div>
-                `;
-            }).join('');
-        }
-
-        // Выбор размера
-        function selectSize(productId, size) {
-            selectedSizes[productId] = size;
-            renderProducts();
-        }
-
-        // Добавление в корзину
-        function addToCart(productId) {
-            const product = products.find(p => p.id === productId);
-            const size = selectedSizes[productId] || 'M';
-
-            const existingItem = cart.find(item => item.id === productId && item.size === size);
-
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({
-                    id: product.id,
-                    name: product.name,
-                    price: product.price,
-                    image: product.image,
-                    size: size,
-                    quantity: 1
-                });
-            }
-
-            saveCart();
-            updateCartUI();
-            toggleCart(true); // Открываем корзину
-        }
-
-        // Удаление из корзины
-        function removeFromCart(index) {
-            cart.splice(index, 1);
-            saveCart();
-            updateCartUI();
-        }
-
-        // Сохранение в LocalStorage
-        function saveCart() {
-            localStorage.setItem('minion_cart', JSON.stringify(cart));
-        }
-
-        // Обновление отображения корзины
-        function updateCartUI() {
-            const cartItemsContainer = document.getElementById('cart-items-container');
-            const cartBadge = document.getElementById('cart-count');
-            const cartTotalPrice = document.getElementById('cart-total-price');
-
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-
-            cartBadge.innerText = totalItems;
-            cartTotalPrice.innerText = `${totalPrice} ₽`;
-
-            if (cart.length === 0) {
-                cartItemsContainer.innerHTML = `<p class="cart-empty-text">Корзина пуста 😔<br>Выбери классную футболку!</p>`;
-                return;
-            }
-
-            cartItemsContainer.innerHTML = cart.map((item, index) => `
-                <div class="cart-item">
-                    <img src="${item.image}" onerror="this.src='${fallbackImages[item.id]}'" alt="${item.name}">
-                    <div class="cart-item-info">
-                        <div class="cart-item-title">${item.name}</div>
-                        <div class="cart-item-size">Размер: <strong>${item.size}</strong> | Кол-во: ${item.quantity} шт.</div>
-                        <div class="cart-item-price">${item.price * item.quantity} ₽</div>
-                    </div>
-                    <button class="cart-item-remove" onclick="removeFromCart(${index})">🗑️</button>
+                  </div>
+                  
+                  <button 
+                    onClick={() => onRemoveItem(item.id, item.size)}
+                    className="self-start p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-xl transition-colors"
+                  >
+                    <Trash2 size={20} />
+                  </button>
                 </div>
-            `).join('');
-        }
+              ))}
+            </div>
+          )}
+        </div>
 
-        // Переключение видимости корзины
-        function toggleCart(forceOpen = false) {
-            const overlay = document.getElementById('cart-overlay');
-            if (forceOpen) {
-                overlay.classList.add('active');
-            } else {
-                overlay.classList.toggle('active');
-            }
-        }
+        <div className="p-6 border-t-4 border-blue-600 bg-white">
+          <div className="flex justify-between items-center mb-6">
+            <span className="text-xl font-bold text-gray-600 uppercase">Итого:</span>
+            <span className="text-3xl font-black text-blue-600">{total} ₽</span>
+          </div>
+          <button 
+            disabled={cartItems.length === 0}
+            className={`w-full py-4 rounded-xl font-black text-lg uppercase tracking-wide border-2 transition-all flex justify-center items-center gap-2
+              ${cartItems.length === 0 
+                ? 'bg-gray-200 text-gray-400 border-gray-300 cursor-not-allowed' 
+                : 'bg-blue-600 hover:bg-blue-500 text-white border-blue-800 shadow-[4px_4px_0_0_rgba(30,41,59,1)] hover:shadow-[2px_2px_0_0_rgba(30,41,59,1)] hover:translate-y-[2px]'
+              }`}
+          >
+            Оформить заказ
+          </button>
+        </div>
+      </div>
+    </>
+  );
+};
 
-        function closeCartOnOverlay(event) {
-            if (event.target.id === 'cart-overlay') {
-                toggleCart();
-            }
-        }
+export default function App() {
+  const [cart, setCart] = useState([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
-        // Отправка заказа в Telegram @a16rs
-        function sendOrderToTelegram() {
-            if (cart.length === 0) {
-                alert('Ваша корзина пуста!');
-                return;
-            }
+  // Стили для шрифта (встроим базовые настройки для более игривого вида)
+  useEffect(() => {
+    document.body.style.backgroundColor = COLORS.yellow;
+    document.body.style.fontFamily = "'Nunito', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+  }, []);
 
-            let message = "🍌 *НОВЫЙ ЗАКАЗ В MINION SHOP* 🍌\n\n";
-            let totalPrice = 0;
+  const addToCart = (productToAdd) => {
+    setCart(prevCart => {
+      // Ищем, есть ли уже такой товар такого же размера
+      const existingItemIndex = prevCart.findIndex(
+        item => item.id === productToAdd.id && item.size === productToAdd.size
+      );
 
-            cart.forEach((item, i) => {
-                const itemTotal = item.price * item.quantity;
-                totalPrice += itemTotal;
-                message += `${i + 1}. *${item.name}*\n   • Размер: *${item.size}*\n   • Количество: ${item.quantity} шт.\n   • Цена: ${itemTotal} ₽\n\n`;
-            });
+      if (existingItemIndex >= 0) {
+        // Увеличиваем количество
+        const newCart = [...prevCart];
+        newCart[existingItemIndex].quantity += 1;
+        return newCart;
+      } else {
+        // Добавляем новый
+        return [...prevCart, { ...productToAdd, quantity: 1 }];
+      }
+    });
+    setIsCartOpen(true); // Открываем корзину при добавлении
+  };
 
-            message += `💰 *Итого к оплате:* ${totalPrice} ₽\n\nЗдравствуйте! Хочу оформить этот заказ!`;
+  const updateQuantity = (id, size, newQuantity) => {
+    if (newQuantity < 1) {
+      removeItem(id, size);
+      return;
+    }
+    setCart(prevCart => 
+      prevCart.map(item => 
+        (item.id === id && item.size === size) 
+          ? { ...item, quantity: newQuantity } 
+          : item
+      )
+    );
+  };
 
-            const encodedMessage = encodeURIComponent(message);
-            const telegramUrl = `https://t.me/a16rs?text=${encodedMessage}`;
+  const removeItem = (id, size) => {
+    setCart(prevCart => prevCart.filter(item => !(item.id === id && item.size === size)));
+  };
 
-            window.open(telegramUrl, '_blank');
-        }
+  const totalItemsCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-        // Инициализация
-        renderProducts();
-        updateCartUI();
-    </script>
-</body>
-</html>
+  return (
+    <div className="min-h-screen flex flex-col relative text-slate-800">
+      {/* Шапка сайта */}
+      <header className="sticky top-0 z-30 bg-[#fce300] border-b-4 border-blue-600 shadow-md">
+        <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            {/* Иконка-глаз, отсылка к миньонам */}
+            <div className="w-12 h-12 bg-white rounded-full border-4 border-gray-400 flex items-center justify-center shadow-[inset_0_-2px_4px_rgba(0,0,0,0.1)] relative overflow-hidden">
+               <div className="w-4 h-4 bg-[#754b22] rounded-full absolute"></div>
+               <div className="w-1.5 h-1.5 bg-white rounded-full absolute top-[40%] right-[40%]"></div>
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-black text-blue-800 uppercase tracking-tighter" style={{ textShadow: '2px 2px 0px white' }}>
+              MinionStore
+            </h1>
+          </div>
+
+          <button 
+            onClick={() => setIsCartOpen(true)}
+            className="relative bg-white p-3 rounded-2xl border-4 border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white transition-all shadow-[4px_4px_0_0_rgba(37,99,235,1)] hover:shadow-none hover:translate-y-1 hover:translate-x-1"
+          >
+            <ShoppingCart size={24} className="stroke-[3]" />
+            {totalItemsCount > 0 && (
+              <span className="absolute -top-3 -right-3 bg-red-500 text-white text-xs font-black w-7 h-7 flex items-center justify-center rounded-full border-2 border-white shadow-md">
+                {totalItemsCount}
+              </span>
+            )}
+          </button>
+        </div>
+      </header>
+
+      {/* Основной контент */}
+      <main className="flex-grow w-full max-w-6xl mx-auto px-4 py-8 sm:py-12">
+        <div className="text-center mb-10">
+          <h2 className="text-4xl sm:text-6xl font-black text-blue-800 uppercase mb-4 tracking-tight" style={{ textShadow: '3px 3px 0px white' }}>
+            Банана-Коллекция
+          </h2>
+          <p className="text-xl font-bold text-gray-800 max-w-2xl mx-auto bg-white/50 py-2 px-6 rounded-full inline-block border-2 border-blue-600/20">
+            Самые крутые футболки для настоящих фанатов! Выбирай свой размер.
+          </p>
+        </div>
+
+        {/* Сетка товаров */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 pb-12">
+          {PRODUCTS.map(product => (
+            <ProductCard 
+              key={product.id} 
+              product={product} 
+              onAddToCart={addToCart} 
+            />
+          ))}
+        </div>
+      </main>
+
+      {/* Корзина (выдвижная панель) */}
+      <CartDrawer 
+        isOpen={isCartOpen} 
+        onClose={() => setIsCartOpen(false)} 
+        cartItems={cart}
+        onUpdateQuantity={updateQuantity}
+        onRemoveItem={removeItem}
+      />
+
+      {/* Футер / Контакты */}
+      <footer className="bg-blue-600 text-white border-t-4 border-blue-800 mt-auto">
+        <div className="max-w-6xl mx-auto px-4 py-8 sm:py-12">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-8 bg-blue-700/50 p-6 md:p-8 rounded-3xl border-2 border-blue-500 shadow-inner">
+            
+            <div className="text-center md:text-left">
+              <h3 className="text-2xl font-black text-yellow-300 uppercase mb-2">Остались вопросы?</h3>
+              <p className="text-blue-100 font-medium">Свяжитесь со мной, и я помогу оформить заказ!</p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+              {/* Кнопка телефона */}
+              <a 
+                href="tel:+79998335704" 
+                className="flex items-center justify-center gap-3 bg-white text-blue-800 font-bold py-3 px-6 rounded-2xl hover:bg-yellow-300 transition-colors shadow-md border-2 border-transparent hover:border-yellow-400"
+              >
+                <Phone size={20} className="text-blue-600" />
+                <span>+7 999 833-57-04</span>
+              </a>
+
+              {/* Кнопка Telegram */}
+              <a 
+                href="https://t.me/a16rs" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="flex items-center justify-center gap-3 bg-[#229ED9] text-white font-bold py-3 px-6 rounded-2xl hover:bg-blue-400 transition-colors shadow-md border-2 border-transparent hover:border-blue-300"
+              >
+                <Send size={20} />
+                <span>Telegram: @a16rs</span>
+              </a>
+            </div>
+
+          </div>
+          
+          <div className="text-center mt-8 text-blue-200 text-sm font-medium flex items-center justify-center gap-2">
+             <Info size={16} />
+             Сделано с любовью к бананам 🍌 | 2024
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
